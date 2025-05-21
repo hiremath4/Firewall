@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberSentry - AI-Powered Threat Intelligence</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1a2a6c, #2a4858);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-icon {
+      margin-right: 10px;
+      font-size: 1.8rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #4ECDC4;
+    }
+    
+    .btn {
+      background-color: #4ECDC4;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background-color: #36B1AB;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(42, 72, 88, 0.8), rgba(26, 42, 108, 0.9)), url('/api/placeholder/1200/600') no-repeat center/cover;
+      color: white;
+      text-align: center;
+      padding: 10rem 2rem 6rem;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    .hero-btns {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 5rem 0;
+      background-color: white;
+    }
+    
+    .section-heading {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-heading h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #1a2a6c;
+    }
+    
+    .section-heading p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #4ECDC4;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #1a2a6c;
+    }
+    
+    /* Team Section */
+    .team {
+      padding: 5rem 0;
+      background-color: #f0f2f5;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .team-member {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    
+    .member-photo {
+      height: 350px;
+      background-color: #ddd;
+      position: relative;
+    }
+    
+    .member-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .member-info h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #1a2a6c;
+    }
+    
+    .member-role {
+      color: #4ECDC4;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-link {
+      color: #666;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+    
+    .social-link:hover {
+      color: #4ECDC4;
+    }
+    
+    /* Contact Section */
+    .contact {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, #1a2a6c, #2a4858);
+      color: white;
+      text-align: center;
+    }
+    
+    .contact .section-heading h2 {
+      color: white;
+    }
+    
+    .contact .section-heading p {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    
+    .form-control:focus {
+      border-color: #4ECDC4;
+      outline: none;
+    }
+    
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1a2a6c;
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: #4ECDC4;
+    }
+    
+    .copyright {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-btns {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <span class="logo-icon">🛡️</span> AI Firewall
+        </div>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="/signin" class="btn">Sign In</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>AI-Powered Cyber Threat Intelligence</h1>
+      <p>Stay ahead of threats with advanced machine learning algorithms that predict, detect, and mitigate cyber attacks before they impact your business.</p>
+      <div class="hero-btns">
+        <a href="#features" class="btn">Explore Features</a>
+        <a href="#contact" class="btn btn-secondary">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Intelligent Protection for Modern Threats</h2>
+        <p>Our AI-powered platform continuously monitors, learns, and adapts to evolving cyber threats.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Real-Time Threat Detection</h3>
+          <p>Advanced algorithms scan your systems continuously, identifying suspicious patterns and potential vulnerabilities before they can be exploited.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>Predictive Analytics</h3>
+          <p>Our AI analyzes global threat data to predict emerging attack vectors and proactively strengthen your defenses against future threats.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚨</div>
+          <h3>Incident Response</h3>
+          <p>Automated containment protocols and guided response workflows help your team react swiftly and effectively to security incidents.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Comprehensive Reporting</h3>
+          <p>Gain valuable insights with detailed security reports, compliance documentation, and actionable recommendations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Continuous Learning</h3>
+          <p>Our platform evolves with every interaction, constantly improving threat detection accuracy and reducing false positives.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>Threat Intelligence Network</h3>
+          <p>Leverage collective intelligence from our global network to identify and block threats that have targeted other organizations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="team">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Meet Our Expert Team</h2>
+        <p>Dedicated professionals with decades of combined experience in cybersecurity and artificial intelligence.</p>
+      </div>
+      <div class="team-grid" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+        <div class="team-member" style="width: 300px; border: 1px solid #ddd; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; background-color: #fff;">
+          
+          <div class="member-photo" style="width: 100%; height: 300px; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+            <img src="https://i.postimg.cc/K8pz3Fq1/Photo.jpg" alt="Team-member" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          
+          <div class="member-info" style="padding: 15px;">
+            <h3 style="margin: 10px 0 5px; font-size: 20px;">Dr.S.V.Manjaragi</h3>
+            <div class="member-role" style="color: #555; font-weight: bold; margin-bottom: 8px;">Associate Professor, Project guide</div>
+            <p style="color: #777; font-size: 14px; margin-bottom: 12px;">Computer Science and Engineering & Wireless networks.</p>
+            
+            <div class="social-links" style="display: flex; justify-content: center; gap: 10px;">
+              <a href="https://www.linkedin.com/in/shivanand-manjaragi-2b942730/" class="social-link" style="text-decoration: none; font-size: 18px; color: #0e76a8;">[in]</a>
+              <a href="mailto:svmanjaragi.cse@hsit.ac.in" class="social-link">✉</a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="https://i.postimg.cc/YS62tnH9/sachin-removebg-preview.png" alt="Team Member" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="member-info">
+            <h3>Sachin Huchhannavar </h3>
+            <div class="member-role">Project Lead </div>
+            <p>Expert in AI-driven security systems  in developing threat intelligence solutions.</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/sachin-huchhannavar/" class="social-link"style="text-decoration: none; font-size: 18px; color: #0e76a8;">[in]</a>
+              <a href="mailto:SachinHuchhannavar@gmail.com" class="social-link">✉</a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="https://i.postimg.cc/hvgpHG0v/umakanth-removebg-preview.png" alt="Team Member" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="member-info">
+            <h3>Umakant karadi</h3>
+            <div class="member-role">Full Stack Web developer</div>
+            <p>Intern At Tap Academy,Bangalore</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/umakant-karadi-709299270/" class="social-link"style="text-decoration: none; font-size: 18px; color: #0e76a8;">[in]</a>
+              <a href="mailto:karadiumakant@gmail.com" class="social-link">✉</a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="https://i.postimg.cc/5yCRDRNS/Sumit-removebg-preview.png" alt="Team Member" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="member-info">
+            <h3>Sumit Hiremath</h3>
+            <div class="member-role">AI-ML Expert</div>
+            <p>Intern At Rooman Technology,Belagavi</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/sumit-hiremath-1a58a5290/" class="social-link"style="text-decoration: none; font-size: 18px; color: #0e76a8;">[in]</a>
+              <a href="mailto:hiremathsumit4@gmail.com" class="social-link">✉</a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="https://i.postimg.cc/PxL38RZn/Omkar-removebg-preview.png" alt="Team Member" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="member-info">
+            <h3>Omkar Patil</h3>
+            <div class="member-role">Full-Stack Developer</div>
+            <p>Specialized In frontend development</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/omkar-patil-43b527318/" class="social-link"style="text-decoration: none; font-size: 18px; color: #0e76a8;">[in]</a>
+              <a href="mailto:omkarppatil222@gmail.com" class="social-link">✉</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Ready to Secure Your Business?</h2>
+        <p>Get in touch with our team to schedule a demo or learn more about our services.</p>
+      </div>
+      <div class="contact-form">
+        <form>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" class="form-control" id="company" placeholder="Enter your company name">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" placeholder="Tell us about your security needs"></textarea>
+          </div>
+          <button type="submit" class="btn">Submit Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+      <p class="copyright">© 2025 AI Firewall. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
